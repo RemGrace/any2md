@@ -2,6 +2,8 @@
 
 CLI utility in Rust for converting various sources to Markdown. Supports PDF files, websites, images (OCR), and audio transcription.
 
+![any2md converting its own GitHub page to Markdown](docs/demo.gif)
+
 ## Installation
 
 ### Download Pre-built Binaries
@@ -75,7 +77,7 @@ Options:
 
 ### PDF to Markdown
 
-Convert PDF documents to structured Markdown with headings, tables, lists, code blocks, bold/italic formatting, and images.
+Convert PDF documents to Markdown. Works best on simple, text-based documents: headings, paragraphs, code blocks, images and wide tables. Complex layouts can lose structure, see [Known Limitations](#known-limitations).
 
 ```bash
 # Basic conversion (output: document.md)
@@ -319,6 +321,9 @@ any2md document.pdf --debug --log-file /tmp/debug.log
 
 - **Split pages mode**: `--pages split` is accepted but not yet implemented
 - **Password-protected PDFs**: Fails with a generic parse error
+- **PDF tables**: Small tables can come through as plain text, and text right after a table can merge into its last row
+- **PDF lists and formatting**: Bullet items can merge into one line, numbered items can repeat the number, and inline bold or italic can split a paragraph
+- **PDF code blocks**: Indentation is lost
 - **Audio speaker detection**: Simple pause-based heuristic (2 speakers max), not real diarization
 - **Audio live mode**: Only supports local Whisper engine, not cloud
 - **Website JS rendering**: Plain HTTP fetch only, no headless browser (SPAs won't work)
